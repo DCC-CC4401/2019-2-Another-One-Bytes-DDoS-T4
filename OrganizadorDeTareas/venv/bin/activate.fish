@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/pachon/Desktop/Ingenieria/OrganizadorDeTareas/venv"
+set -gx VIRTUAL_ENV "/home/pachon/Desktop/Ingenieria/2019-2-Another-One-Bytes-DDoS-T4/OrganizadorDeTareas/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
