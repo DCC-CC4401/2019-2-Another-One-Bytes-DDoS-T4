@@ -1,4 +1,5 @@
-from django.db import models
+
+  from django.db import models
 
 class Actividad(models.Model):
     act_id = models.IntegerField(primary_key=True, null=False, blank=False)
@@ -19,9 +20,9 @@ class Categoria(models.Model):
         return self.nombre_cat
 
 class Clasificacion(models.Model):
-    cat_id = models.OneToOneField(Categoria)
-    act_id = models.OneToOneField(Actividad)
-    cla_nombre = models.CharField(primary_key=True, null=False, blank=False)
+    cat_id = models.ForeignKey(Categoria)
+    act_id = models.ForeignKey(Actividad)
+
 
     def __str__(self):
         return self.cla_nombre
@@ -36,13 +37,13 @@ class Usuario(models.Model):
     )
 
     id = models.IntegerField(primary_key=True)
-    #falta hacer el hashign de la contraseña
-    correo = models.EmailField(max_length=75, null=False, blank=False)
+    hash=models.CharField(unique=True)
+    correo = models.EmailField(max_length=50, null=False, blank=False)
     tipo = models.CharField(max_length=1, choices=tipo_choice, default=NATURAL)
 
 
 class UsuarioNatural(models.Model):
-    user_id = models.OneToOneField(Usuario)
+    user_id = models.ForeignKey(Usuario)
     user_nombre = models.CharField(max_length=100, null=False, blank=False)
     foto = models.ImageField(upload_to='/fotos')
     fecha_nacimiento = models.DateField(null=False, blank=False)
@@ -59,18 +60,17 @@ class Registro(models.Model):
         (FINALIZADO, "finalizado")
     )
 
-    act_id = models.OneToOneField(Actividad)
-    user_id = models.OneToOneField(UsuarioNatural)
+    act_id = models.ForeignKey(Actividad)
+    user_id = models.ForeignKey(UsuarioNatural)
     estado = models.CharField(max_length=1, choices=estado_choices, default=REALIZANDO)
 
     def __str__(self):
         return self.estado #esta puede cambiar
 
 class Solicitud(models.Model):
-    emisor = models.OneToOneField(UsuarioNatural)
-    receptor = models.OneToOneField(UsuarioNatural)
+    emisor_id = models.ForeignKey(UsuarioNatural)
+    receptor_id = models.ForeignKey(UsuarioNatural)
 
 class Amistad(models.Model):
-    user_id = models.OneToOneField(UsuarioNatural)
-    amigo_id = models.OneToOneField(UsuarioNatural)
-
+    user_id = models.ForeignKey(UsuarioNatural)
+    amigo_id = models.ForeignKey(UsuarioNatural)
