@@ -5,8 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/LandingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/LandingPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/UserProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/UserProfile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -107,7 +105,7 @@
       <workItem from="1570649129874" duration="6262000" />
       <workItem from="1570660056637" duration="339000" />
       <workItem from="1570662491758" duration="44000" />
-      <workItem from="1570666536925" duration="7911000" />
+      <workItem from="1570666536925" duration="10838000" />
     </task>
     <servers />
   </component>

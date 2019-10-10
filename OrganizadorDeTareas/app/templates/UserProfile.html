@@ -1,4 +1,7 @@
 {% extends 'LandingPage.html' %}
+{% block titulo %}
+<title>Usuario</title>
+{% endblock %}
 {% block body %}
     <!--CONTENIDO PAGINA-->
     <div class="container-fluid p-4 main">
@@ -88,13 +91,11 @@
                 <div class="tab-pane fade show disabled {% if active_tab == 'seguridad' %}active{% endif %}" id="Seguridad" role="tabpanel" aria-labelledby="Seguridad-tab">
                     <form>
                         <!--Contraseña actual-->
-                        <fieldset disabled>
                             <div class="form-group">
                                 <label for="disabledTextInput">Contraseña actual:</label>
                                 <input type="text" id="disabledTextInputContraseñaActual" class="form-control"
                                        placeholder="************">
                             </div>
-                        </fieldset>
 
                         <!--Contraseña nueva-->
                         <div class="form-group">
