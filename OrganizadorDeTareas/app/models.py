@@ -1,5 +1,4 @@
-
-  from django.db import models
+from django.db import models
 
 class Actividad(models.Model):
     act_id = models.IntegerField(primary_key=True, null=False, blank=False)
