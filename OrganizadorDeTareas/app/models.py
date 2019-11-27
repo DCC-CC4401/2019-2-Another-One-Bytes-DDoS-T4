@@ -1,5 +1,4 @@
-
-  from django.db import models
+from django.db import models
 
 class Actividad(models.Model):
     act_id = models.IntegerField(primary_key=True, null=False, blank=False)
@@ -20,8 +19,8 @@ class Categoria(models.Model):
         return self.nombre_cat
 
 class Clasificacion(models.Model):
-    cat_id = models.ForeignKey(Categoria)
-    act_id = models.ForeignKey(Actividad)
+    cat_id = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    act_id = models.ForeignKey(Actividad, on_delete=models.CASCADE)
 
 
     def __str__(self):
@@ -32,20 +31,20 @@ class Usuario(models.Model):
     NATURAL = "N"
 
     tipo_choice = (
-        (ADMINISTRADOR, "administrador")
+        (ADMINISTRADOR, "administrador"),
         (NATURAL, "natural")
     )
 
     id = models.IntegerField(primary_key=True)
-    hash=models.CharField(unique=True)
+    hash=models.CharField(max_length=20, unique=True)
     correo = models.EmailField(unique=True, max_length=50, null=False, blank=False)
     tipo = models.CharField(max_length=1, choices=tipo_choice, default=NATURAL)
 
 
 class UsuarioNatural(models.Model):
-    user_id = models.ForeignKey(Usuario)
+    user_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     user_nombre = models.CharField(max_length=100, null=False, blank=False)
-    foto = models.ImageField(upload_to='/fotos')
+    foto = models.ImageField(upload_to='media')
     fecha_nacimiento = models.DateField(null=False, blank=False)
 
     def __str__(self):
@@ -56,21 +55,21 @@ class Registro(models.Model):
     FINALIZADO = "F"
 
     estado_choices = (
-        (REALIZANDO, "realizando")
+        (REALIZANDO, "realizando"),
         (FINALIZADO, "finalizado")
     )
 
-    act_id = models.ForeignKey(Actividad)
-    user_id = models.ForeignKey(UsuarioNatural)
+    act_id = models.ForeignKey(Actividad, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE)
     estado = models.CharField(max_length=1, choices=estado_choices, default=REALIZANDO)
 
     def __str__(self):
         return self.estado #esta puede cambiar
 
 class Solicitud(models.Model):
-    emisor_id = models.ForeignKey(UsuarioNatural)
-    receptor_id = models.ForeignKey(UsuarioNatural)
+    emisor_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE, related_name="emisor")
+    receptor_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE, related_name="receptor")
 
 class Amistad(models.Model):
-    user_id = models.ForeignKey(UsuarioNatural)
-    amigo_id = models.ForeignKey(UsuarioNatural)
+    user_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE, related_name="user")
+    amigo_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE, related_name="amigo")
