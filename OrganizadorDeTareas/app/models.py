@@ -27,18 +27,12 @@ class Clasificacion(models.Model):
         return self.cla_nombre
 
 class Usuario(models.Model):
-    ADMINISTRADOR = "A"
-    NATURAL = "N"
 
-    tipo_choice = (
-        (ADMINISTRADOR, "administrador"),
-        (NATURAL, "natural")
-    )
 
     id = models.IntegerField(primary_key=True)
     hash=models.CharField(max_length=20, unique=True)
     correo = models.EmailField(unique=True, max_length=50, null=False, blank=False)
-    tipo = models.CharField(max_length=1, choices=tipo_choice, default=NATURAL)
+
 
 
 class UsuarioNatural(models.Model):
