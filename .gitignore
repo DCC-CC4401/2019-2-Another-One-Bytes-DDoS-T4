@@ -111,4 +111,6 @@ venv.bak/
 pip-selfcheck.json
 *.sqlite
 
+*.pyc
+
 # End of https://www.gitignore.io/api/pycharm,virtualenv

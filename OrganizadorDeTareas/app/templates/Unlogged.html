@@ -51,7 +51,7 @@
 </form>
 </div>
 -->		
-		<form action="/app/landing" method="post">
+		<form method="POST">
     {% csrf_token %}
 	{% for field in form.visible_fields %}
 	
@@ -65,6 +65,7 @@
   {% endfor %}
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
+
         <ul class="list-unstyled text-center py-4">
 		¿No tienes cuenta? &nbsp;
             <a href="/app/registro"><button type="button" class="btn btn-primary">Crear cuenta</button></a>

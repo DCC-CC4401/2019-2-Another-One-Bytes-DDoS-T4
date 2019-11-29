@@ -44,7 +44,7 @@
         </div>
         <div class="text-center py-3">
             <img src="/static/img/turing.jpg" class="avatar px-2 py-2">
-            <p class="h6">Bienvenido, <br> Nombre de usuario</p>
+            <p class="h6">Bienvenido, <br> {{user.nombre}} {{user.apellido}}</p>
         </div>
         <ul class="list-unstyled components text-left">
             <li>
@@ -73,7 +73,10 @@
         </ul>
 
         <ul class="list-unstyled text-center py-4">
+		<form method="POST">
             <button type="button" class="btn btn-danger">Cerrar Sesión</button>
+			</form>
+
         </ul>
     </nav>
     {% block body %}

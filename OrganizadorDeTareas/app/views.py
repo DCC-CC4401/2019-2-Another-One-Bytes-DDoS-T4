@@ -1,26 +1,35 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+from django.contrib.auth import login, authenticate,logout
+from django.urls import reverse_lazy
 from users.forms import CustomUserChangeForm, CustomAutenticationForm, CustomUserCreationForm
 from django.http import HttpResponseRedirect
 
 
 # Create your views here.
-def login(request):
+def loginPage(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = CustomAutenticationForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            correo = form.cleaned_data.get('correo')
+            raw_password = form.cleaned_data.get('password1')
+
+            user = authenticate(correo=correo, password=raw_password)
+            login(request, user)
+            return render(request, 'LandingPage.html')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = CustomAutenticationForm()
 
     return render(request, 'Unlogged.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'index.html')
+
 
 def registerPage(request):
     # if this is a POST request we need to process the form data
@@ -29,10 +38,15 @@ def registerPage(request):
         form = CustomUserCreationForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            form.save()
+
+            correo = form.cleaned_data.get('correo')
+            raw_password = form.cleaned_data.get('password1')
+
+            user = authenticate(correo=correo, password=raw_password)
+            login(request, user)
+            return redirect('/landing')
+
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -41,6 +55,10 @@ def registerPage(request):
     return render(request, 'Registro.html', {'form': form})
 
 def landing(request):
+    if request.method == 'POST':
+        logout(request)
+        return render(request, 'index.html')
+
     return render(request, 'LandingPage.html')
 
 def test(request):

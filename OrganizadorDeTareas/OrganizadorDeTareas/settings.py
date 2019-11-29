@@ -40,10 +40,10 @@ INSTALLED_APPS = [
     #'app.apps.AppConfig',
     'app',
     'users',
-'widget_tweaks',
+ 'widget_tweaks',
 
 ]
-AUTH_USER_MODEL = 'users.Usuario'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,7 +74,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'OrganizadorDeTareas.wsgi.application'
-
+AUTH_USER_MODEL = 'users.Usuario'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
