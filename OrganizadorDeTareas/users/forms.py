@@ -7,13 +7,17 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = Usuario
-        fields = ('correo', 'nombre','apellido')
+        fields = ('correo', 'nombre','apellido','foto')
 
 class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = Usuario
         fields = ('correo', 'password')
+
+class changeImage(forms.Form):
+    foto = forms.ImageField()
+
 
 
 

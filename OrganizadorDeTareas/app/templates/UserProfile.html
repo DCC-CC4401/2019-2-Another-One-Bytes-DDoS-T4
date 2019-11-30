@@ -6,28 +6,21 @@
     <!--CONTENIDO PAGINA-->
     <div class="container-fluid p-4 main">
         <div class="row">
-            <img src="/static/img/turing.jpg" class="circular mx-auto d-block shadow" height="250px">
+
+            <img src="{{user.foto.url}}" class="circular mx-auto d-block shadow" height="250px">
         </div>
         <div class="row py-4">
             <div class="col text-center">
-                <p class="h4 text-center text-dark">Nombre de usuario</p>
-                    <form id="form_86023" class="appnitro" enctype="multipart/form-data" method="post" action="">
-                        <div class="form_description">
-                            <h2>Untitled Form</h2>
-                            <p>This is your form description. Click here to edit.</p>
-                        </div>
-                        <ul >
-                            <li id="li_1" >
-                                <label class="description" for="element_1">Cambiar Imagen </label>
-                                <div>
-                                    <input id="element_1" name="element_1" class="element file" type="file"/>
-                                </div>
-                            </li>
-                            <li class="buttons">
-                        <input type="image" name="form_id" value="" />
-                        <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
-                </li>
-                    </ul>
+                <p class="h4 text-center text-dark">{{user.nombre}} {{user.apellido}}</p>
+                    <form  enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        
+                            {{ form.as_p }}
+                            
+                        
+                        <button type="submit" class="btn btn-primary">Subir</button>
+                
+                    
                 </form>
             </div>
         </div>
@@ -71,7 +64,7 @@
                             <div class="form-group">
                                 <label for="disabledTextInput">Nombre:</label>
                                 <input type="text" id="disabledTextInputNombre" class="form-control"
-                                       placeholder="Nombre usuario">
+                                       placeholder="{{user.nombre}}">
                             </div>
                         </fieldset>
 
@@ -80,7 +73,7 @@
                             <div class="form-group">
                                 <label for="disabledTextInput">Apellidos:</label>
                                 <input type="text" id="disabledTextInputApellidos" class="form-control"
-                                       placeholder="Apellidos usuario">
+                                       placeholder="{{user.apellido}}">
                             </div>
                         </fieldset>
 
@@ -89,18 +82,11 @@
                             <div class="form-group">
                                 <label for="disabledTextInput">Correo electronico:</label>
                                 <input type="text" id="disabledTextInput" class="form-control"
-                                       placeholder="correo@usuario.com">
+                                       placeholder="{{user.correo}}">
                             </div>
                         </fieldset>
 
-                        <!--Fecha de nacimiento -->
-                        <fieldset disabled>
-                            <div class="form-group">
-                                <label for="disabledTextInput">Fecha de Nacimiento:</label>
-                                <input type="text" id="disabledTextInputFechaNacimiento" class="form-control"
-                                       placeholder="dd/mm/yyyy">
-                            </div>
-                        </fieldset>
+                        
                     </form>
                 </div>
 
@@ -111,7 +97,7 @@
                             <div class="form-group">
                                 <label for="disabledTextInput">Contraseña actual:</label>
                                 <input type="text" id="disabledTextInputContraseñaActual" class="form-control"
-                                       placeholder="************">
+                                       placeholder="{{user.password}}">
                             </div>
 
                         <!--Contraseña nueva-->

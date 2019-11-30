@@ -5,12 +5,11 @@ from app.views import *
 app_name = "app"
 
 urlpatterns = [
-    path('', index),
+    path('', index,name='index'),
     path('registro', registerPage),
-    path('landing', landing),
+    path('landing',landing ,name='landing'),
     path('login', loginPage,name='login'),
     path('logout', logout_view,name='logout'),
-    path('test', test),
     path('user-profile/', userProfile),
     path('user-security/', userSecurity),
     path('user-friends/', userFriends),

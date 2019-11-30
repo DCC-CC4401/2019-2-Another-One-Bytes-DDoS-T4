@@ -5,13 +5,12 @@ from django.contrib.auth.admin import UserAdmin
 from users.forms import CustomUserCreationForm, CustomUserChangeForm
 from users.models import Usuario
 
-class Admin(UserAdmin):
+class Admin(admin.ModelAdmin):
     model = Usuario
     add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
+    form = CustomUserCreationForm
 
-
-    list_display = ('nombre','apellido','correo','is_staff')  # Contain only fields in your `custom-user-model`
+    list_display = ('nombre','apellido','correo','foto','is_staff')  # Contain only fields in your `custom-user-model`
     list_filter = ('nombre','apellido','correo','is_staff')  # Contain only fields in your `custom-user-model` intended for filtering. Do not include `groups`since you do not have it
     search_fields = ('nombre','apellido','correo','is_staff')  # Contain only fields in your `custom-user-model` intended for searching
     ordering = ('nombre','apellido','correo','is_staff')  # Contain only fields in your `custom-user-model` intended to ordering

@@ -43,12 +43,12 @@
             <h1>LOGO</h1>
         </div>
         <div class="text-center py-3">
-            <img src="/static/img/turing.jpg" class="avatar px-2 py-2">
+            <img src="{{user.foto.url}}" class="avatar px-2 py-2">
             <p class="h6">Bienvenido, <br> {{user.nombre}} {{user.apellido}}</p>
         </div>
         <ul class="list-unstyled components text-left">
             <li>
-                <a href="/app">Inicio</a>
+                <a href="{%url  'app:landing'%}">Inicio</a>
             </li>
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Perfil</a>
@@ -67,14 +67,12 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="https://www.reddit.com/r/memes/">Otra cosa</a>
-            </li>
+            
         </ul>
 
         <ul class="list-unstyled text-center py-4">
 		<form method="POST">
-            <button type="button" class="btn btn-danger">Cerrar Sesión</button>
+             <a href="{%url  'app:logout'%}"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
 			</form>
 
         </ul>

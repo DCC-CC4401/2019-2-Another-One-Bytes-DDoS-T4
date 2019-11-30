@@ -36,7 +36,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     nombre=models.CharField(unique=False,max_length=200)
     apellido = models.CharField(unique=False, max_length=200)
     correo = models.EmailField(unique=True,max_length=50, null=False, blank=False,verbose_name=u"Correo Electrónico")
-    foto = models.ImageField(upload_to='media', null=True, blank=True)
+    foto = models.ImageField(upload_to='images/',verbose_name=u"Foto de perfil")
     is_active = models.BooleanField(('active'), default=True)
     is_staff = models.BooleanField(('is_staff'), default=False)
 
@@ -62,4 +62,5 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         Returns the short name for the user.
         '''
         return self.nombre
-
+    def set_foto(self,foto):
+        self.foto=foto
