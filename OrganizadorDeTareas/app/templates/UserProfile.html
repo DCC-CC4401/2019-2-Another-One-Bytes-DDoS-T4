@@ -6,8 +6,11 @@
     <!--CONTENIDO PAGINA-->
     <div class="container-fluid p-4 main">
         <div class="row">
-
+			{% if user.foto%}
             <img src="{{user.foto.url}}" class="circular mx-auto d-block shadow" height="250px">
+			{% else %}
+			<img src="/media/images/default.png" class="circular mx-auto d-block shadow" height="250px">
+			{% endif %}
         </div>
         <div class="row py-4">
             <div class="col text-center">

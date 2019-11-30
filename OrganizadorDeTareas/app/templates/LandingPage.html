@@ -43,7 +43,11 @@
             <h1>LOGO</h1>
         </div>
         <div class="text-center py-3">
+			{% if user.foto%}
             <img src="{{user.foto.url}}" class="avatar px-2 py-2">
+			{% else %}
+			<img src="/media/images/default.png" class="avatar px-2 py-2">
+			{% endif %}
             <p class="h6">Bienvenido, <br> {{user.nombre}} {{user.apellido}}</p>
         </div>
         <ul class="list-unstyled components text-left">
