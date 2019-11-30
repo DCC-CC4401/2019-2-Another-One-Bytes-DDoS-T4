@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import login, authenticate,logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
-from users.forms import CustomUserChangeForm, CustomAutenticationForm, CustomUserCreationForm
+from users.forms import CustomUserChangeForm, CustomUserCreationForm
 from django.http import HttpResponseRedirect
 
 
@@ -10,19 +11,17 @@ def loginPage(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = CustomAutenticationForm(request.POST)
+        form = AuthenticationForm(data=request.POST)
         # check whether it's valid:
         if form.is_valid():
-            correo = form.cleaned_data.get('correo')
-            raw_password = form.cleaned_data.get('password1')
 
-            user = authenticate(correo=correo, password=raw_password)
-            login(request, user)
-            return render(request, 'LandingPage.html')
+            login(request, form.user_cache)
+            return redirect('/landing')
+
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = CustomAutenticationForm()
+        form = AuthenticationForm()
 
     return render(request, 'Unlogged.html', {'form': form})
 
@@ -57,7 +56,7 @@ def registerPage(request):
 def landing(request):
     if request.method == 'POST':
         logout(request)
-        return render(request, 'index.html')
+        return redirect('/login')
 
     return render(request, 'LandingPage.html')
 

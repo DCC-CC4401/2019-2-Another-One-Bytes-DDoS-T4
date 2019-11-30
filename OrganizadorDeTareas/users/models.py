@@ -42,7 +42,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    EMAIL_FIELD = 'correo'
+    #EMAIL_FIELD = 'correo'
     USERNAME_FIELD = 'correo'
     REQUIRED_FIELDS = ['nombre','apellido']
 

@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import Usuario
 
 class Actividad(models.Model):
     act_id = models.IntegerField(primary_key=True, null=False, blank=False)
@@ -26,23 +27,7 @@ class Clasificacion(models.Model):
     def __str__(self):
         return self.cla_nombre
 
-class Usuario(models.Model):
 
-
-    id = models.IntegerField(primary_key=True)
-    hash=models.CharField(max_length=20, unique=True)
-    correo = models.EmailField(unique=True, max_length=50, null=False, blank=False)
-
-
-
-class UsuarioNatural(models.Model):
-    user_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    user_nombre = models.CharField(max_length=100, null=False, blank=False)
-    foto = models.ImageField(upload_to='media')
-    fecha_nacimiento = models.DateField(null=False, blank=False)
-
-    def __str__(self):
-        return self.user_nombre
 
 class Registro(models.Model):
     REALIZANDO = "R"
@@ -54,16 +39,16 @@ class Registro(models.Model):
     )
 
     act_id = models.ForeignKey(Actividad, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     estado = models.CharField(max_length=1, choices=estado_choices, default=REALIZANDO)
 
     def __str__(self):
         return self.estado #esta puede cambiar
 
 class Solicitud(models.Model):
-    emisor_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE, related_name="emisor")
-    receptor_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE, related_name="receptor")
+    emisor_id = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="emisor")
+    receptor_id = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="receptor")
 
 class Amistad(models.Model):
-    user_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE, related_name="user")
-    amigo_id = models.ForeignKey(UsuarioNatural, on_delete=models.CASCADE, related_name="amigo")
+    user_id = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="user")
+    amigo_id = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="amigo")
