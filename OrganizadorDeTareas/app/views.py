@@ -62,10 +62,11 @@ def index(request):
     return render(request, 'index.html')
 
 def userProfile(request):
-    if request.method == 'POST' and 'submit_foto' in request.POST:
+    if request.method == 'POST':
         form=changeImage(request.POST,request.FILES)
         if form.is_valid():
-            request.user.set_foto(request.FILES)
+            img=form.cleaned_data.get('foto')
+            request.user.set_foto(img)
             request.user.save()
     else:
         form = changeImage()
