@@ -1,11 +1,12 @@
 from django.shortcuts import render, HttpResponse, redirect
-from django.contrib.auth import login, authenticate,logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate,logout,update_session_auth_hash
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.urls import reverse_lazy
 from users.forms import CustomUserChangeForm, CustomUserCreationForm,changeImage
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
-
+lastActive='perfil'
 # Create your views here.
 def loginPage(request):
     # if this is a POST request we need to process the form data
@@ -61,26 +62,49 @@ def landing(request):
 def index(request):
     return render(request, 'index.html')
 
-def userProfile(request):
+
+
+def userProfileAvatar(request):
     if request.method == 'POST':
-        form=changeImage(request.POST,request.FILES)
+        form = changeImage(request.POST, request.FILES)
         if form.is_valid():
-            img=form.cleaned_data.get('foto')
+            img = form.cleaned_data.get('foto')
             request.user.set_foto(img)
             request.user.save()
     else:
         form = changeImage()
 
+    return render(request, 'UserProfile-Avatar.html',{'form': form,'active_tab': 'perfil'})
 
-    return render(request, 'UserProfile.html', {'form': form,'active_tab': 'perfil'})
+def userProfilePassword(request):
+
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Contraseña cambiada correctamente.')
+            return redirect('app:userSecurity')
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+    return render(request, 'UserProfile-Password.html',{'form': form,'active_tab': 'seguridad'})
+
+def userProfile(request):
+
+    return render(request, 'UserProfile.html',{'active_tab': 'perfil'})
 
 def userSecurity(request):
+
     return render(request, 'UserProfile.html', {'active_tab': 'seguridad'})
 
 def userFriends(request):
+
     return render(request, 'UserProfile.html', {'active_tab': 'amigos'})
 
 def userActivities(request):
+
+
     return render(request, 'UserProfile.html',   {'active_tab': 'actividades'})
 def register(request):
     pass

@@ -40,13 +40,16 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 			
                 <p class="h4 text-center text-dark">{{user.nombre}}  {{user.apellido}}</p>
 				
-                    
+                    <form  enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        
+                            {{ form.as_p }}
                             
                         
-                       <a href="{%url  'app:userProfileAvatar'%}"><button type="submit" name="foto" class="btn btn-primary">Cambiar Avatar</button></a>
+                        <button type="submit" name="foto" class="btn btn-primary">Subir</button>
                 
                     
-                
+                </form>
             </div>
         </div>
 
@@ -120,13 +123,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
                 <!--PESTAÑA SEGURIDAD-->
                 <div class="tab-pane fade show disabled {% if active_tab == 'seguridad' %}active{% endif %}" id="Seguridad" role="tabpanel" aria-labelledby="Seguridad-tab">
-						{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+                    
 						<a href="{%url  'app:userProfilePassword'%}"><button type="submit" name="password" class="btn btn-success">Cambiar contraseña</button></a>
 
                     

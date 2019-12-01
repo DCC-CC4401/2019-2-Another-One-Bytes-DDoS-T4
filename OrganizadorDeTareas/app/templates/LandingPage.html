@@ -1,6 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
+{% if user.is_authenticated %}
+
+{% else %}
+<meta http-equiv = "refresh" content = "0; /login " />
+
+{% endif %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,6 +29,12 @@
             });
         });
     </script>
+	<script type="text/javascript">
+	$('#perfilButton').click(function(e){
+    e.preventDefault();
+    $('#"pestañas-perfil-de-usuario a[href="#second"]').tab('show');
+})
+	</script>
 </head>
 
 <body>
@@ -58,7 +70,7 @@
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Perfil</a>
                 <ul class="collapse list-unstyled text-left" id="pageSubmenu">
                     <li>
-                        <a href="/app/user-profile">Mi Perfil</a>
+                        <a href="{% url 'app:userProfile'%}" >Mi Perfil</a>
                     </li>
                     <li>
                         <a href="/app/user-security">Seguridad</a>

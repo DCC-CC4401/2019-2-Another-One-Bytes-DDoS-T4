@@ -16,7 +16,7 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('correo', 'password')
 
 class changeImage(forms.Form):
-    foto = forms.ImageField()
+    foto = forms.ImageField(allow_empty_file=True)
 
 
 
