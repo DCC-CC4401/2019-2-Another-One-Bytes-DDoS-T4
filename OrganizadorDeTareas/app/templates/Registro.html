@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load widget_tweaks %}
 <html lang="en">
 
 <head>
@@ -19,65 +20,56 @@
 			
     <!--SIDEBAR-->
     <nav id="sidebar3">
-        <div class="sidebar-header text-center py-5">
+        <div class="sidebar-header text-center py-4">
             <h1>LOGO</h1>
         </div>
-		<div class="sidebar-header text-center py-5">
+		<div class="sidebar-header text-center py-4">
             <h3>Registrar nueva cuenta</h3>
         </div>
-        <div class="text-center py-3">
-            
-            <p class="h6">  <br> </p>
-        </div>
+        
 		<div class="container">
   <div class="row">
     <div class="col-sm">
-        <!--<form enctype="multipart/form-data" method="POST" >
-          
-          
-  
-    <label for="exampleInputEmail1">Correo electrónico</label>
-    <input type="email" class="form-control bg-light px-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Escriba el correo electrónico">
-    
- 
-   </div>
-    </div>
-	<div class="row">
-    <div class="col-sm">
-        
-  
-    <label for="exampleInputEmail1">Nombre </label>
-    <input type="text" class="form-control bg-light px-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Escriba su nombre">
-    
-  
-   </div>
-    </div>
-	<div class="row">
-    <div class="col-sm">
-        
-  
-    <label for="exampleInputEmail1">Apellido</label>
-    <input type="text" class="form-control bg-light px-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Escriba su apellido">
-    
-  
-   </div>
-    </div>
-  
-    <label for="exampleInputPassword1">Contraseña</label>
-    <input type="password" class="form-control bg-light px-2" id="exampleInputPassword1" placeholder="Contraseña">
-  
-  
-    <label for="exampleInputPassword1">Confirmar contraseña</label>
-    <input type="password" class="form-control bg-light px-2" id="exampleInputPassword1" placeholder="Vuelva a escribir su contraseña">
-  
-  <br>
-  <button type="submit" class="btn btn-primary">Registrar</button>
-  
-</form>
--->
+
 <form enctype="multipart/form-data" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+  {% endfor %}
+
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+      {% for error in form.non_field_errors %}
+        {{ error }}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% for field in form.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+
+      {% if form.is_bound %}
+        {% if field.errors %}
+          {% render_field field class="form-control bg-light px-2 is-invalid " %}
+          {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
+            </div>
+          {% endfor %}
+        {% else %}
+          {% render_field field class="form-control bg-light px-2 is-valid " %}
+        {% endif %}
+      {% else %}
+        {% render_field field class="form-control bg-light px-2" %}
+      {% endif %}
+
+      {% if field.help_text %}
+        <small class="form-text">{{ field.help_text }}</small>
+      {% endif %}
+    </div>
+  {% endfor %}
     <button type="submit" class="btn btn-primary">Registrar</button>
 </form>
 
