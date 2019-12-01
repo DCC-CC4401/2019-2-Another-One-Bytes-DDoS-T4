@@ -1,7 +1,7 @@
 
 
 {% extends 'LandingPage.html' %}
-{% load customTags %}
+
 {% block titulo %}
 <title>Usuario</title>
 {% endblock %}
@@ -12,27 +12,16 @@
 <meta http-equiv = "refresh" content = "0; /login " />
 
 {% endif %}
-<script>
- 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  var currId = $(e.target).attr("id");
-  {{active_tab|update_variable:"est"}}
-  //just for demo
-  document.getElementById('output').innerHTML = 2;
-  $('#lastTab').html(currId);
- 
-})
 
- </script>
  
 
     <!--CONTENIDO PAGINA-->
     <div class="container-fluid p-4 main">
         <div class="row">
 			{% if user.foto%}
-            <img src="{{user.foto.url}}" class="circular mx-auto d-block shadow" height="250px">
+            <img src="{{user.foto.url}}" class="circular mx-auto d-block shadow" height="250px" width="250px">
 			{% else %}
-			<img src="/media/images/default.png" class="circular mx-auto d-block shadow" height="250px">
+			<img src="/media/images/default.png" class="circular mx-auto d-block shadow" height="250px" width="250px">
 			{% endif %}
         </div>
         <div class="row py-4">
