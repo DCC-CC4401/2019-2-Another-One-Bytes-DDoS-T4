@@ -78,6 +78,8 @@
                     </li>
                 </ul>
             </li>
+            {% if user.is_staff%}<li>
+            <a href="/admin">Administar Usuarios</a> </li>{% endif %}
             
         </ul>
 
